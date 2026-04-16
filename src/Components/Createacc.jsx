@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 export default function Createacc() {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [tenantId , settenantId] =useState("");
     const [loading , setLoading] = useState(false);
     const [showpass , setshowpass] = useState(false);
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function Createacc() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email, password ,tenantId }),
         });
         const data =await res.json();
         if(res.ok){
@@ -82,6 +83,13 @@ export default function Createacc() {
                 {showpass ? <FaEyeSlash /> : <FaEye /> }
             </span>
             </div>
+            <input
+            type ="text"
+            placeholder='gym Id'
+            value={tenantId}
+            onChange={(e)=>settenantId(e.target.value)}
+            className='p-2 border w-full'
+            />
   
          <button
              type="submit"

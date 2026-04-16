@@ -41,7 +41,7 @@ export default function Users() {
 
     return () => clearTimeout(timer);
   }, [search, page]);
-
+// console.log(token);
   const searchusr = async () => {
     try {
       const res = await fetch(`${BASE_URL}/search?page=${page}&limit=${limit}`, {
@@ -160,7 +160,7 @@ const isExpired = (date) => {
   return (
     <>
    return (
-  <div className="bg-[#020617] min-h-screen text-white flex flex-col">
+  <div className="bg-[#020617] min-h-screen text-white flex flex-col scrollbar-hidden">
 
     {/* SEARCH */}
     <div className="flex justify-center items-center h-[20vh]">

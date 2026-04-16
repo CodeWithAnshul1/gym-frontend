@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 export default function Loggin() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [tenantId , settenantId] =useState("");
   const [showpass , setshowpass] = useState(false);
   const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -22,7 +23,7 @@ export default function Loggin() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password , tenantId }),
       });
 
       const data = await res.json();
@@ -34,6 +35,7 @@ export default function Loggin() {
 
       localStorage.setItem("token", data.token);
       await fetchUser();
+      // console.log(data.token);
 
       toast.success("Login successful");
       navigate("/clint");
@@ -89,6 +91,15 @@ export default function Loggin() {
           
         </span>
         </div>
+        <input
+        type="text"
+        placeholder="gym Id"
+        required
+        value={tenantId}
+        className="w-full border  p-2 rounded-md "
+        onChange={(e)=> settenantId(e.target.value)}
+
+        />
 
         <button
           type="submit"

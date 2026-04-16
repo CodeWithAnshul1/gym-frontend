@@ -8,6 +8,7 @@ import PrivateRoutes from './PrivateRoutes'
 import ProtectRoutes from './ProctectRoutes'
 import Loggin from "./Loggin"
 import Createacc from './Createacc'
+import Revenue from './Revenue'
 
 export default function AppRoutes() {
   return (
@@ -30,6 +31,7 @@ export default function AppRoutes() {
         <Route path="/update/:id" element={
           <PrivateRoutes><UpdateUser /></PrivateRoutes>}/>
 
+        <Route path="/revenue" element={<ProtectRoutes><Revenue/></ProtectRoutes>}/>
                 
     </Routes>
   );

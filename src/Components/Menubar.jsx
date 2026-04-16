@@ -3,6 +3,7 @@ import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/Authcontext";
+import Revenue from "./Revenue";
 
 export default function Menubar() {
   const [open, setOpen] = useState(false);
@@ -39,6 +40,10 @@ export default function Menubar() {
   const goToUser = () => {
     setOpen(false);
     navigate("/user");
+  };
+  const revenue =()=>{
+    setOpen(false);
+    navigate("/revenue");
   };
 
   return (
@@ -107,6 +112,15 @@ export default function Menubar() {
               className="block w-full text-left bg-[#111827] p-2 rounded"
             >
               Manage Users
+            </button>
+          )}
+          {(user?.role === "superadmin")&&(
+            <button
+            onClick={revenue}
+            className="block w-full text-left bg-[#111827] p-2 rounded"
+            >
+              Revenue
+            
             </button>
           )}
 

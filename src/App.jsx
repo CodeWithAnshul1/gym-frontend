@@ -9,7 +9,9 @@ import { useAuth } from './context/Authcontext';
 
 
 export default function App() {
-  const {user } =useAuth();
+  const {user,loading } =useAuth();
+
+  if(loading) return null;
   return (
     <>
     {user &&<Navbar />}
