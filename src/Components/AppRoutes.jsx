@@ -9,12 +9,16 @@ import ProtectRoutes from './ProctectRoutes'
 import Loggin from "./Loggin"
 import Createacc from './Createacc'
 import Revenue from './Revenue'
+import Forgot from './Forgot'
+import Resetpass from './Resetpass'
 
 export default function AppRoutes() {
   return (
     <Routes>
         <Route path="/" element={<Loggin />} />
         <Route path="/createacc" element={<Createacc/>}/>
+        <Route path ="/forgot" element ={<Forgot/>}/>
+        <Route path ="reset-pass" element={<Resetpass/>}/>
 
         
         <Route path="/Add" element={ 

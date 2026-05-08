@@ -11,6 +11,7 @@ export default function Loggin() {
   const [showpass , setshowpass] = useState(false);
   const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_API_URL;
+  const [loading ,setloading]=useState(false);
 
   const { fetchUser } = useAuth();
 
@@ -18,6 +19,7 @@ export default function Loggin() {
     e.preventDefault();
 
     try {
+      setloading(true);
       const res = await fetch(`${BASE_URL}/login`, {
         method: "POST",
         headers: {
@@ -43,6 +45,9 @@ export default function Loggin() {
     } catch (err) {
       toast.error("Something went wrong");
     }
+    finally{
+      setloading(false);
+    }
   };
 
   return (
@@ -56,7 +61,7 @@ export default function Loggin() {
         relative
       "
     >
-      {/* 🔥 overlay only on mobile */}
+      {/* 🔥 overlay only on mobile */}           
       <div className="absolute inset-0 bg-black/60 md:hidden"></div>
 
       <form
@@ -101,20 +106,31 @@ export default function Loggin() {
 
         />
 
-        <button
-          type="submit"
-          className="w-full bg-[#22C55E] py-2 rounded-md"
-        >
-          Sign in
-        </button>
+       <button
+  type="submit"
+  disabled={loading}
+  className="w-full bg-[#22C55E] py-2 rounded-md"
+>
+  Sign in
+</button>
 
-        <button
-          type="button"
-          onClick={() => navigate("/createacc")}
-          className="text-blue-400 ml-[25%]"
-        >
-          Create new account
-        </button>
+<div className="flex flex-col  space-y-2 text-sm mt-2">
+  <button
+    type="button"
+    onClick={() => navigate("/forgot")}
+    className="text-gray-300 hover:text-white"
+  >
+    Forgot Password?
+  </button>
+
+  <button
+    type="button"
+    onClick={() => navigate("/createacc")}
+    className="text-blue-400 hover:underline"
+  >
+    Create account
+  </button>
+</div>
       </form>
     </div>
   );
