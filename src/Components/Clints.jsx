@@ -41,7 +41,7 @@ export default function Users() {
 
     return () => clearTimeout(timer);
   }, [search, page]);
-// console.log(token);
+ // console.log(token);
   const searchusr = async () => {
     try {
       const res = await fetch(`${BASE_URL}/search?page=${page}&limit=${limit}`, {
@@ -71,8 +71,8 @@ export default function Users() {
   };
   const formatDate = (date) => {
   return new Date(date).toLocaleDateString();
-};
-const isExpired = (date) => {
+ };
+ const isExpired = (date) => {
   if (!date) return false;
 
   const exp = new Date(date);
@@ -157,10 +157,95 @@ const isExpired = (date) => {
 
   }
 
+  const payment = async(id)=>{
+    try{
+      
+      const res = await fetch(`${BASE_URL}/create-order`,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":`Bearer ${token}`,
+        },
+        body:JSON.stringify({
+          month,
+          id
+        })
+        
+      });
+  
+      const data =  await res.json();
+      console.log(data);
+      if(!res.ok){
+      return  console.log(data.message);
+      }
+      // console.log("ggjg");
+
+      const options ={
+        key :import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount :data.order.amount,
+        currency :data.order.currency,
+        name :"Gym HUB",
+         description: "Membership Payment",
+         order_id :data.order.id,
+
+         handler: async function(response){
+          try{
+
+            const result = await fetch(`${BASE_URL}/order-verify`,{
+              method:"POST",
+              headers:{
+                "Content-Type":"application/json",
+                "Authorization":`Bearer ${token}`,
+              },
+              body:JSON.stringify({
+                ...response,
+                month,
+                id,
+              }),
+              
+            });
+            
+            const data = await result.json();
+            
+            if(result.ok){
+              toast.success(data.message);
+              setfee(null);
+              setmonth("");
+              showusers();
+            }
+            else{
+              toast.error(data.message);
+            }
+            
+            // console.log(response);
+          }
+          catch(err){
+            console.log(err);
+          }
+
+          // toast.success("payment successfull");
+         },
+         prefill : {
+           email : user.email,
+          },
+          theme :{
+            color :"#2563eb",
+          },
+          
+        };
+        const razor =new window.Razorpay(options);
+        razor.open();
+      
+    }
+    catch(err){
+      toast.error(err.message);
+    }
+  }
+
   return (
     <>
    return (
-  <div className="bg-[#020617] min-h-screen text-white flex flex-col scrollbar-hidden">
+  <div className="bg-[#020617] min-h-screen text-white flex flex-col ">
 
     {/* SEARCH */}
     <div className="flex justify-center items-center h-[20vh]">
@@ -219,7 +304,7 @@ const isExpired = (date) => {
                   {formatDate(user.expiredate)}
                 </p>
 
-                {isAdmin && (
+                {isAdmin ?(
                   <>
                     <button
                       onClick={() => setfee(user._id)}
@@ -255,6 +340,38 @@ const isExpired = (date) => {
                       </div>
                     )}
                   </>
+                ):(
+                  <>
+                    <button
+                      onClick={() => setfee(user._id)}
+                      className="bg-blue-500 text-white px-3 py-1 rounded"
+                    >
+                      Add membership
+                    </button>
+
+                   
+
+                    {fee === user._id && (
+                      <div className="mt-2 space-y-2">
+                        <input
+                          type="number"
+                          placeholder="enter months"
+                          min={1}
+                          value={month}
+                          onChange={(e) => setmonth(e.target.value)}
+                          className="w-full border p-2 rounded-md bg-transparent text-white"
+                        />
+
+                        <button
+                          onClick={() => payment(user._id)}
+                          className="bg-green-500 px-3 py-1 rounded"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    )}
+                  </>
+
                 )}
               </div>
             ))}
