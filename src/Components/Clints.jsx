@@ -15,7 +15,7 @@ export default function Users() {
   const[month ,setmonth] =useState("");
     const {user}= useAuth();
 
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
   // const role = localStorage.getItem("role");
 
   const navigate = useNavigate();
@@ -46,9 +46,10 @@ export default function Users() {
     try {
       const res = await fetch(`${BASE_URL}/search?page=${page}&limit=${limit}`, {
         method: "POST",
+        credentials :"include",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, // ✅ added
+          // "Authorization": `Bearer ${token}`, // ✅ added
         },
         body: JSON.stringify({ search }),
       });
@@ -86,8 +87,9 @@ export default function Users() {
       setLoading(true);
 
       const res = await fetch(`${BASE_URL}/clints?page=${page}&limit=${limit}`, {
+        credentials :"include",
         headers: {
-          "Authorization": `Bearer ${token}`, // ✅ added
+          // "Authorization": `Bearer ${token}`, // ✅ added
         },
       });
 
@@ -106,8 +108,9 @@ export default function Users() {
     try {
       const res = await fetch(`${BASE_URL}/delete/${id}`, {
         method: "DELETE",
+        credentials: "include",
         headers: {
-          "Authorization": `Bearer ${token}`, // ✅ added
+          // "Authorization": `Bearer ${token}`, // ✅ added
         },
      
       });
@@ -130,9 +133,10 @@ export default function Users() {
 
       const res = await fetch(`${BASE_URL}/extendfee/${id}`,{
         method :"PUT",
+        credentials :"include",
         headers:{
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          // "Authorization": `Bearer ${token}`,
         },
            body:JSON.stringify({
           month,
@@ -162,9 +166,10 @@ export default function Users() {
       
       const res = await fetch(`${BASE_URL}/create-order`,{
         method:"POST",
+        credentials :"include",
         headers:{
           "Content-Type":"application/json",
-          "Authorization":`Bearer ${token}`,
+          // "Authorization":`Bearer ${token}`,
         },
         body:JSON.stringify({
           month,
@@ -193,9 +198,10 @@ export default function Users() {
 
             const result = await fetch(`${BASE_URL}/order-verify`,{
               method:"POST",
+              credentials :"include",
               headers:{
                 "Content-Type":"application/json",
-                "Authorization":`Bearer ${token}`,
+                // "Authorization":`Bearer ${token}`,
               },
               body:JSON.stringify({
                 ...response,

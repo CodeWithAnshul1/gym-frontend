@@ -15,7 +15,7 @@ export default function AddUser() {
     e.preventDefault();
 
     // 🔥 get token from localStorage
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
     if (!token) {
       toast.error("Unauthorized! Please login again");
@@ -26,10 +26,11 @@ export default function AddUser() {
     try {
       const res = await fetch(`${BASE_URL}/`, {
         method: "POST",
+        credentials :"include",
         headers: {
           "Content-Type": "application/json",
           // ✅ send token in header
-          "Authorization": `Bearer ${token}`,
+          // "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({ name, number, add , month}),
       });

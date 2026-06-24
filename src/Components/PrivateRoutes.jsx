@@ -1,13 +1,11 @@
 import React from 'react';
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/Authcontext";
 
 export default function PrivateRoutes({ children }) {
-
-  const token = localStorage.getItem("token");
-
-  // ❌ no token → not logged in
-  if (!token) {
-    return <Navigate to="/" />;
+  const {loading , user}=useAuth();
+   if(!user){
+   return <Navigate to="/"/>;
   }
 
   // ✅ token exists → allow access

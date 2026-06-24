@@ -18,13 +18,13 @@ export default function Users() {
   const BASE_URL = import.meta.env.VITE_API_URL;
 
   // 🔐 AUTH HEADER
-  const getAuthHeader = () => {
-    const token = localStorage.getItem("token");
-    return {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
-    };
-  };
+  // const getAuthHeader = () => {
+  //   const token = localStorage.getItem("token");
+  //   return {
+  //     "Content-Type": "application/json",
+  //     // "Authorization": `Bearer ${token}`,
+  //   };
+  // };
 
   // ================= FETCH USERS =================
   const showuser = async () => {
@@ -34,7 +34,10 @@ export default function Users() {
       const res = await fetch(
         `${BASE_URL}/users?page=${page}&limit=${limit}`,
         {
-          headers: getAuthHeader(),
+          credentials:"include",
+          headers: {
+            "Content-Type": "application/json",
+          }
         }
       );
 
@@ -64,7 +67,10 @@ export default function Users() {
         `${BASE_URL}/usrsearch?page=${page}&limit=${limit}`,
         {
           method: "POST",
-          headers: getAuthHeader(),
+          credentials:"include",
+          headers:{
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({ search }),
         }
       );
@@ -93,7 +99,10 @@ export default function Users() {
     try {
       const res = await fetch(`${BASE_URL}/change-role/${id}`, {
         method: "PUT",
-        headers: getAuthHeader(),
+        credentials:"include",
+        headers: {
+          "Content-Type": "application/json",
+        }
       });
 
       const data = await res.json();

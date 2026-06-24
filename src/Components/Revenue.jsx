@@ -14,8 +14,9 @@ export default function Revenue() {
       setLoading(true);
 
       const res = await fetch(`${BASE_URL}/revenue`, {
+        credentials :"include",
         headers: {
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       });
 

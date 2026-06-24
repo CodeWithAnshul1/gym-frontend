@@ -22,6 +22,7 @@ export default function Loggin() {
       setloading(true);
       const res = await fetch(`${BASE_URL}/login`, {
         method: "POST",
+        credentials:"include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -35,7 +36,7 @@ export default function Loggin() {
         return;
       }
 
-      localStorage.setItem("token", data.token);
+      // localStorage.setItem("token", data.token);
       await fetchUser();
       // console.log(data.token);
 
