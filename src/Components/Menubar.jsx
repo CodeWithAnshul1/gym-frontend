@@ -8,25 +8,29 @@ import Revenue from "./Revenue";
 export default function Menubar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const BASE_URL=import.meta.env.VITE_API_URL;
 
   const { user, setUser } = useAuth();
 
   // ✅ logout (localStorage based)
-  const logout = () => {
+  const logout = async() => {
     try {
-      // 🔥 remove token + role
-      localStorage.removeItem("token");
-      // localStorage.removeItem("role");
+      const res = await fetch(`${BASE_URL}/logout`,{
+        "method":"POST",
+        credentials :"include",
 
-      // clear context
-      setUser(null);
-
-      toast.success("Logged out successfully");
-
+      });
+      const data = res.json();
+      if(res.ok){
+        toast.success("logout successfully");
+        setUser(null);
+      }
+      
       setOpen(false);
-      navigate("/");
 
     } catch (err) {
+      console.log(err);
+
       toast.error("Logout failed");
     }
   };

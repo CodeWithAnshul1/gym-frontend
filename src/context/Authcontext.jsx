@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
     //   setLoading(false);
     //   return;
     // }
-    console.log("FETCH START");
+    // console.log("FETCH START");
 
 
 
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       
     } finally {
       setLoading(false);
-      console.log("FETCH END");
+      // console.log("FETCH END");
     }
   };
 

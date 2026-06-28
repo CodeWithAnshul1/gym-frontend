@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
   const { user } = useAuth();
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
   // ✅ clean role check
   const isAdmin = user?.role === "admin" || user?.role === "superadmin";
