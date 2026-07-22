@@ -17,11 +17,11 @@ export default function AddUser() {
     // 🔥 get token from localStorage
     // const token = localStorage.getItem("token");
 
-    if (!token) {
-      toast.error("Unauthorized! Please login again");
-      navigate("/login");
-      return;
-    }
+    // if (!token) {
+    //   toast.error("Unauthorized! Please login again");
+    //   navigate("/login");
+    //   return;
+    // }
 
     try {
       const res = await fetch(`${BASE_URL}/`, {

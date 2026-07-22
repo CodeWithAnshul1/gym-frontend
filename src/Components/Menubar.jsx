@@ -16,13 +16,13 @@ export default function Menubar() {
   const logout = async() => {
     try {
       const res = await fetch(`${BASE_URL}/logout`,{
-        "method":"POST",
+        method:"POST",
         credentials :"include",
 
       });
-      const data = res.json();
+      const data =  await res.json();
       if(res.ok){
-        toast.success("logout successfully");
+        toast.success(data.message);
         setUser(null);
       }
       
